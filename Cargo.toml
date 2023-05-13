@@ -3,6 +3,9 @@ name = "real_battery"
 version = "0.1.0"
 edition = "2021"
 
+[package.metadata]
+magisk_module_dir = "./Real_Battery/"
+
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [profile.release]
