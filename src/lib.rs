@@ -65,9 +65,7 @@ pub fn exec_cmd(command: &str, args: &[&str]) -> Result<String, i32> {
 }
 
 use std::fs::File;
-use std::io::prelude::*;
-
 fn create_file(path: &str) -> std::io::Result<()> {
-    let mut file = File::create(path)?;
+    let _file = File::create(path)?;
     Ok(())
 }

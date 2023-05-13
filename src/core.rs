@@ -1,5 +1,5 @@
 use crate::mount::mount_bind;
-use crate::{exec_cmd, is_writable, set_security_context, test_path, write_file};
+use crate::{create_file, exec_cmd, is_writable, set_security_context, test_path, write_file};
 use std::{fs::read_to_string, thread::sleep, time::Duration};
 
 pub const BMS_CAPACITY: &str = "/sys/class/power_supply/bms/capacity";
