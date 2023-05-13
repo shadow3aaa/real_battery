@@ -1,6 +1,13 @@
 use real_battery::{core::*, set_self_sched};
+use std::env;
 
 fn main() {
+    let args: Vec<String> = env::args().collect();
+    if let Some(s) = args.get(1) {
+        if s == "--init_mount" {
+            mount_init();
+        }
+    }
     test_support();
     set_self_sched();
 

@@ -45,24 +45,19 @@ fn set_cap_by_write(cap: u32) {
     write_file(&cap.to_string(), BMS_CAPACITY);
 }
 
-fn set_cap_by_mount_init() {
-    static mut INITED: bool = false;
-    unsafe {
-        if INITED {
-            return;
-        } else {
-            INITED = true;
-        }
-    }
+pub fn mount_init() {
     set_enforce(false);
     write_file("50", MOUNT_CAPACITY);
     mount_bind(MOUNT_CAPACITY, BAT_CAPACITY).unwrap();
     set_security_context(BAT_CAPACITY, "u:object_r:vendor_sysfs_battery_supply:s0");
     set_enforce(true);
+    std::process::exit(0);
 }
 
 fn set_cap_by_mount(cap: u32) {
-    set_cap_by_mount_init();
+    if !test_path(MOUNT_CAPACITY) {
+        std::process::exit(-1);
+    }
     write_file(&cap.to_string(), MOUNT_CAPACITY);
 }
 
