@@ -6,7 +6,10 @@ if [[ ! -d /sys/class/power_supply/bms ]]; then
         while [ ! -f /sys/class/power_supply/battery/capacity ]; do
             sleep 1
         done
-    	$MODDIR/real_batt --init_mount
+        while  [ ! -f /cache/real_battery_cap ]; do
+            sleep 1
+    	    $MODDIR/real_batt --init_mount
+    	done
 	} &
 else
     nohup $MODDIR/real_batt >/dev/null 2>&1 &
