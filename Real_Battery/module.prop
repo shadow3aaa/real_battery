@@ -1,0 +1,6 @@
+id=real_bat_cap
+name=真实电量
+version=v0.1
+versionCode=1
+author=shadow3
+description=让部分支持的设备显示更符合实际状态的电量百分比
