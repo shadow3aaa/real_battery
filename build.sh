@@ -26,7 +26,7 @@ if [[ ! $? -eq 0 ]]; then
 		# try target aarch64-unknown-linux-gnu
 		export RUSTFLAGS="-C target-feature=+crt-static"
 		rustup target add aarch64-unknown-linux-gnu 2>&1 >/dev/null
-		cargo build $TAGS aarch64-unknown-linux-gnu
+		cargo build $TAGS --target=aarch64-unknown-linux-gnu
 	fi
 fi
 [[ ! $? -eq 0 ]] &&
