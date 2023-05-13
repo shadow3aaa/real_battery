@@ -51,6 +51,7 @@ pub fn mount_init() {
     mount_bind(MOUNT_CAPACITY, BAT_CAPACITY).unwrap();
     set_security_context(BAT_CAPACITY, "u:object_r:vendor_sysfs_battery_supply:s0");
     set_enforce(true);
+    // 完成init操作直接退出
     std::process::exit(0);
 }
 
