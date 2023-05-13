@@ -9,15 +9,15 @@ function pgreen() {
 }
 
 if [[ ! -d ${0%/*}/Real_Battery || ! -f ${0%/*}/Real_Battery/real_batt ]]; then
-    pred "打包失败，也许还没有编译?"
-    exit -1
+	pred "打包失败，也许还没有编译?"
+	exit -1
 fi
 
 cd ${0%/*}/Real_Battery
 zip -r -X9 -FS ${0%/*}/../Real_Battery.zip ./
 
 if [ $? -eq 0 ]; then
-    pgreen "打包magisk模块成功"
+	pgreen "打包magisk模块成功"
 else
-    pred "打包为magisk模块失败"
+	pred "打包为magisk模块失败"
 fi
