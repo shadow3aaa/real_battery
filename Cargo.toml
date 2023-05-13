@@ -13,7 +13,6 @@ lto = "fat"
 codegen-units = 1
 opt-level = 'z'
 strip = true
-panic = 'abort'
 
 [dependencies]
 libc = "0.2.144"

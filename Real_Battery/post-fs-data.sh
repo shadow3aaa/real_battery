@@ -7,7 +7,6 @@ if [[ ! -d /sys/class/power_supply/bms ]]; then
             sleep 1
         done
     	$MODDIR/real_batt --init_mount
-    	nohup $MODDIR/real_batt >/dev/null 2>&1 &
 	} &
 else
     nohup $MODDIR/real_batt >/dev/null 2>&1 &

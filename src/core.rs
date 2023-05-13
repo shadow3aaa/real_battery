@@ -27,13 +27,6 @@ where
     }
 }
 
-pub fn test_support() {
-    use std::process::exit;
-    if !test_path(BMS_CAPACITY) && !test_path(BAT_CAPACITY) {
-        exit(-1);
-    }
-}
-
 fn set_cap(cap: u32) {
     match is_writable(BMS_CAPACITY) {
         true => set_cap_by_write(cap),
@@ -56,7 +49,7 @@ pub fn mount_init() {
 
 fn set_cap_by_mount(cap: u32) {
     if !test_path(MOUNT_CAPACITY) {
-        std::process::exit(-1);
+        eprintln!("mount path: {} not found!", MOUNT_CAPACITY)
     }
     write_file(&cap.to_string(), MOUNT_CAPACITY);
 }
