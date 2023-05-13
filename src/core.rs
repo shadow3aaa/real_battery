@@ -29,7 +29,7 @@ where
 
 pub fn test_support() {
     use std::process::exit;
-    if !test_path(BMS_CAPACITY) {
+    if !test_path(BMS_CAPACITY) && !test_path(BAT_CAPACITY) {
         exit(-1);
     }
 }
