@@ -41,7 +41,8 @@ fn set_cap_by_write(cap: u32) {
 pub fn mount_init() {
     set_enforce(false);
     create_file(MOUNT_CAPACITY).unwrap();
-    write_file("50", MOUNT_CAPACITY);
+    let cur_cap = read_to_string(BAT_CAPACITY).unwrap_or("50".to_string());
+    write_file(&cur_cap, MOUNT_CAPACITY);
     mount_bind(MOUNT_CAPACITY, BAT_CAPACITY).unwrap();
     set_security_context(BAT_CAPACITY, "u:object_r:vendor_sysfs_battery_supply:s0");
     set_enforce(true);

@@ -10,12 +10,12 @@ fn main() {
             Some(|r: u32| r / 100),
         ),
     ];
-    
+
     if !test_support(list) {
         eprintln!("Unsupported device");
         std::process::exit(-1);
     }
-    
+
     let args: Vec<String> = env::args().collect();
     if let Some(s) = args.get(1) {
         if s == "--init_mount" {
