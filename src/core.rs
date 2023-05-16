@@ -1,6 +1,6 @@
 use crate::mount::mount_bind;
 use crate::{create_file, exec_cmd, is_writable, set_security_context, test_path, write_file};
-use std::{fs::read_to_string, thread::sleep, time::Duration};
+use std::{error::Error, fs::read_to_string, thread::sleep, time::Duration};
 
 pub const BMS_CAPACITY: &str = "/sys/class/power_supply/bms/capacity";
 pub const BAT_CAPACITY: &str = "/sys/class/power_supply/battery/capacity";
@@ -38,14 +38,21 @@ fn set_cap_by_write(cap: u32) {
     write_file(&cap.to_string(), BMS_CAPACITY);
 }
 
-pub fn mount_init() {
+fn mount_init() -> Result<(), Box<dyn Error>> {
     set_enforce(false);
-    create_file(MOUNT_CAPACITY).unwrap();
+    create_file(MOUNT_CAPACITY)?;
     let cur_cap = read_to_string(BAT_CAPACITY).unwrap_or("50".to_string());
     write_file(&cur_cap, MOUNT_CAPACITY);
-    mount_bind(MOUNT_CAPACITY, BAT_CAPACITY).unwrap();
+    mount_bind(MOUNT_CAPACITY, BAT_CAPACITY)?;
     set_security_context(BAT_CAPACITY, "u:object_r:vendor_sysfs_battery_supply:s0");
     set_enforce(true);
+    Ok(())
+}
+
+pub fn init_mount_until_success() {
+    if !test_path(BMS_CAPACITY) && mount_init().is_err() {
+        init_mount_until_success();
+    }
 }
 
 fn set_cap_by_mount(cap: u32) {

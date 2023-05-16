@@ -1,5 +1,4 @@
 use real_battery::{core::*, set_self_sched, test_path};
-use std::env;
 
 fn main() {
     let list = [
@@ -16,12 +15,7 @@ fn main() {
         std::process::exit(-1);
     }
 
-    let args: Vec<String> = env::args().collect();
-    if let Some(s) = args.get(1) {
-        if s == "--init_mount" {
-            mount_init();
-        }
-    }
+    init_mount_until_success();
     set_self_sched();
     run(list);
     std::process::exit(-1);
@@ -32,11 +26,5 @@ where
     T: IntoIterator<Item = (&'static str, Option<F>)>,
     F: Fn(u32) -> u32,
 {
-    let mut r = false;
-    for (path, _) in list {
-        if test_path(path) {
-            r = true
-        }
-    }
-    r
+    list.into_iter().any(|(path, _)| test_path(path))
 }
